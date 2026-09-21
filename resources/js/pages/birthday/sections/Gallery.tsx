@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { galleryItems } from '../data/content';
+import { staticAsset } from '../../../static/asset';
 
 const LAYOUT_BY_INDEX = [
     { item: 'birthday-gallery-item--large', canvas: 'birthday-gallery-canvas--4-3' },
@@ -169,7 +170,7 @@ export default function Gallery() {
                                     <div className={`birthday-gallery-canvas border birthday-rule ${layout.canvas}`}>
                                         {item.src ? (
                                             <img
-                                                src={item.src}
+                                                src={staticAsset(item.src)}
                                                 alt={item.alt}
                                                 loading="lazy"
                                                 className={`birthday-gallery-img${item.fit === 'contain' ? ' birthday-gallery-img--contain' : ''}`}

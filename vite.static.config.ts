@@ -33,7 +33,7 @@ function birthdayStaticPost() {
 }
 
 export default defineConfig({
-    base: './',
+    base: '/Birthday-gallery/',
     publicDir: false,
     plugins: [react(), tailwindcss(), birthdayStaticPost()],
     build: {

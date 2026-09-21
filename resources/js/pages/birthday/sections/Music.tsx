@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { musicContent } from '../data/content';
+import { staticAsset } from '../../../static/asset';
 
 export default function Music() {
     return (
@@ -77,7 +78,7 @@ export default function Music() {
                             <audio
                                 controls
                                 preload="none"
-                                src={musicContent.src}
+                                src={musicContent.src ? staticAsset(musicContent.src) : undefined}
                                 aria-label={`Audio player for ${musicContent.trackTitle}`}
                             />
                         </div>

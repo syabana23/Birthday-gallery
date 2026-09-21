@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { memoryPhotos, memoryVideo } from '../data/content';
+import { staticAsset } from '../../../static/asset';
 
 const LAYOUT_BY_INDEX = [
     { item: 'birthday-memories-photo--lead', canvas: 'birthday-memories-canvas--3-2' },
@@ -110,7 +111,7 @@ export default function Memories() {
                                             <img src={photo.src} alt={photo.alt} loading="lazy" /> */}
                                         {photo.src ? (
                                             <img
-                                                src={photo.src}
+                                                src={staticAsset(photo.src)}
                                                 alt={photo.alt}
                                                 loading="lazy"
                                                 className="birthday-memories-img"
@@ -138,7 +139,7 @@ export default function Memories() {
                                     <video src={memoryVideo.src} poster={memoryVideo.poster} controls preload="metadata" playsInline aria-label={memoryVideo.alt} /> */}
                                 {memoryVideo.src ? (
                                     <video
-                                        src={memoryVideo.src}
+                                        src={memoryVideo.src ? staticAsset(memoryVideo.src) : undefined}
                                         poster={memoryVideo.poster}
                                         controls
                                         preload="metadata"

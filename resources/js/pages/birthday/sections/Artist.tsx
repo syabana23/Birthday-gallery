@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import { artistContent } from '../data/content';
+import { staticAsset } from '../../../static/asset';
 
 export default function Artist() {
     return (
@@ -32,7 +33,7 @@ export default function Artist() {
                     <figure className="birthday-frame p-4 sm:p-5">
                         <div className="birthday-artist-canvas border birthday-rule">
                             <img
-                                src="/images/birthday/memories/magnolia.jpeg"
+                                src={staticAsset('/images/birthday/memories/magnolia.jpeg')}
                                 alt="Portrait photo of Athar wearing glasses, chin resting on her hand"
                                 loading="lazy"
                                 className="birthday-artist-photo"
