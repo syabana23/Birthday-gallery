@@ -30,9 +30,14 @@
             }
         </style>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        @if (($page['component'] ?? '') === 'birthday')
+            <link rel="icon" href="/images/birthday/favicon.svg" type="image/svg+xml">
+            <link rel="apple-touch-icon" href="/images/birthday/favicon.svg">
+        @else
+            <link rel="icon" href="/favicon.ico" sizes="any">
+            <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+            <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        @endif
 
         @fonts
 

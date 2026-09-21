@@ -1,0 +1,802 @@
+/* Birthday page — isolated styles. Only imported by resources/js/pages/birthday.tsx */
+
+.birthday-root {
+    --birthday-paper: #f5f1e8;
+    --birthday-paper-dark: #e9e2d5;
+    --birthday-ink: #151515;
+    --birthday-red: #9e1b32;
+    --birthday-crimson: #c62845;
+    --birthday-blue: #163b70;
+    --birthday-cobalt: #2456a6;
+    --birthday-surface: #fffdf6;
+    --birthday-matte: #f5f1e8;
+
+    background-color: var(--birthday-paper);
+    color: var(--birthday-ink);
+    color-scheme: light;
+}
+
+/* Dark room — warm art-gallery-at-night. Light mode above stays untouched. */
+.birthday-root[data-theme='dark'] {
+    --birthday-paper: #171210;
+    --birthday-paper-dark: #221a15;
+    --birthday-ink: #f3eadb;
+    --birthday-red: #d65a70;
+    --birthday-crimson: #e87e8f;
+    --birthday-blue: #6e97d4;
+    --birthday-cobalt: #8fb4e8;
+    --birthday-surface: #fff3df;
+    --birthday-matte: #171210;
+
+    color-scheme: dark;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Subtle paper grain via inline SVG turbulence (no external asset). */
+.birthday-paper-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+.birthday-eyebrow {
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+.birthday-rule {
+    border-color: color-mix(in srgb, var(--birthday-ink) 18%, transparent);
+}
+
+.birthday-frame {
+    border: 1px solid color-mix(in srgb, var(--birthday-ink) 18%, transparent);
+    background-color: color-mix(in srgb, var(--birthday-surface) 42%, var(--birthday-paper));
+}
+
+/* Lightweight reveal: toggled by IntersectionObserver hook. */
+.birthday-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+        opacity 700ms ease,
+        transform 700ms ease;
+    transition-delay: var(--birthday-reveal-delay, 0ms);
+}
+
+.birthday-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero — gallery-opening composition. */
+.birthday-hero-frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--birthday-ink) 20%, transparent);
+    background-color: color-mix(in srgb, var(--birthday-surface) 30%, var(--birthday-paper));
+    padding: clamp(1.75rem, 5vw, 4rem);
+}
+
+.birthday-hero-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    line-height: 0.95;
+    letter-spacing: 0.08em;
+}
+
+.birthday-hero-brush {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Hero asymmetric grid — desktop above 900px, stacked at or below (same as other rooms). */
+.birthday-hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+@media (min-width: 901px) {
+    .birthday-hero-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 2rem;
+    }
+
+    .birthday-hero-main {
+        grid-column: span 7;
+    }
+
+    .birthday-hero-aside {
+        grid-column: span 5;
+    }
+
+    .birthday-hero-wall {
+        border-top-width: 0;
+        border-left-width: 1px;
+        padding-top: 0;
+        padding-left: 2rem;
+    }
+
+    .birthday-hero-cue {
+        padding-left: 0.5rem;
+    }
+}
+
+.birthday-scroll-cue {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    border-radius: 2px;
+}
+
+.birthday-scroll-cue::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 2.5rem;
+    background-color: color-mix(in srgb, var(--birthday-ink) 45%, transparent);
+}
+
+.birthday-scroll-cue:hover {
+    opacity: 1;
+}
+
+.birthday-scroll-cue:focus-visible {
+    outline: 2px solid var(--birthday-blue);
+    outline-offset: 6px;
+    opacity: 1;
+}
+
+@media (max-width: 640px) {
+    .birthday-hero-brush--red {
+        width: 130%;
+        opacity: 0.5;
+    }
+
+    .birthday-hero-brush--blue {
+        width: 70%;
+        opacity: 0.35;
+    }
+}
+
+/* Artist — second room of the gallery. */
+.birthday-artist-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+@media (min-width: 901px) {
+    .birthday-artist-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: 3rem;
+    }
+
+    .birthday-artist-lead {
+        grid-column: span 5;
+    }
+
+    .birthday-artist-visual {
+        grid-column: span 7;
+    }
+}
+.birthday-artist-index {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.birthday-artist-heading {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.08;
+    font-weight: 500;
+    text-wrap: balance;
+}
+
+.birthday-artist-rule {
+    width: 3rem;
+    height: 2px;
+    background-color: var(--birthday-red);
+}
+
+.birthday-artist-canvas {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.birthday-artist-canvas svg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Artist portrait photo fills the same canvas box. */
+.birthday-artist-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Gallery — HER COLORS exhibition wall. */
+.birthday-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-gallery-item {
+    min-width: 0;
+    transition:
+        opacity 700ms ease,
+        transform 700ms ease,
+        border-color 300ms ease;
+}
+
+.birthday-gallery-item:hover {
+    border-color: color-mix(in srgb, var(--birthday-ink) 38%, transparent);
+}
+
+.birthday-gallery-item--large {
+    grid-column: span 7;
+}
+
+.birthday-gallery-item--small-offset {
+    grid-column-end: span 4;
+    grid-column-start: 9;
+    margin-top: clamp(2rem, 6vw, 5rem);
+}
+
+.birthday-gallery-item--medium {
+    grid-column: span 5;
+}
+
+.birthday-gallery-item--medium-wide {
+    grid-column: span 6;
+}
+
+.birthday-gallery-item--small-tall {
+    grid-column: span 5;
+}
+
+.birthday-gallery-item--wide-closing {
+    grid-column-end: span 8;
+    grid-column-start: 3;
+}
+
+.birthday-gallery-canvas {
+    position: relative;
+    overflow: hidden;
+}
+
+.birthday-gallery-canvas svg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+}
+
+/* Real artwork/photo images share the canvas box with the SVG placeholders. */
+.birthday-gallery-img,
+.birthday-memories-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Portrait artworks shown whole on a paper matte instead of cropped. */
+.birthday-gallery-img--contain {
+    object-fit: contain;
+    background-color: var(--birthday-matte);
+}
+
+/* Theme toggle — fixed gallery light switch, editorial minimal. */
+.birthday-theme-toggle {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 50;
+    border: 1px solid color-mix(in srgb, var(--birthday-ink) 25%, transparent);
+    background-color: color-mix(in srgb, var(--birthday-surface) 70%, var(--birthday-paper));
+    color: var(--birthday-ink);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.7rem 1rem;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.birthday-theme-toggle:hover {
+    opacity: 1;
+}
+
+.birthday-theme-toggle:focus-visible {
+    outline: 2px solid var(--birthday-blue);
+    outline-offset: 3px;
+    opacity: 1;
+}
+
+/* Dark-room grain stays subtly visible on the charcoal background. */
+.birthday-root[data-theme='dark'].birthday-paper-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 430px) {
+    .birthday-theme-toggle {
+        right: 0.75rem;
+        bottom: 0.75rem;
+        padding: 0.6rem 0.8rem;
+    }
+}
+
+.birthday-gallery-canvas--4-3 {
+    aspect-ratio: 4 / 3;
+}
+
+.birthday-gallery-canvas--3-4 {
+    aspect-ratio: 3 / 4;
+}
+
+.birthday-gallery-canvas--square {
+    aspect-ratio: 1 / 1;
+}
+
+.birthday-gallery-canvas--16-10 {
+    aspect-ratio: 16 / 10;
+}
+
+.birthday-gallery-num {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    opacity: 0.8;
+}
+
+.birthday-gallery-caption {
+    border-top: 1px solid color-mix(in srgb, var(--birthday-ink) 18%, transparent);
+    padding-top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .birthday-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-gallery-item--large,
+    .birthday-gallery-item--small-offset,
+    .birthday-gallery-item--medium,
+    .birthday-gallery-item--medium-wide,
+    .birthday-gallery-item--small-tall,
+    .birthday-gallery-item--wide-closing {
+        grid-column: 1 / -1;
+        grid-column-start: auto;
+        margin-top: 0;
+    }
+
+    .birthday-gallery-canvas--3-4,
+    .birthday-gallery-canvas--square,
+    .birthday-gallery-canvas--16-10 {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* Story — BETWEEN THE COLORS editorial room. */
+.birthday-story-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-story-lead {
+    grid-column: span 5;
+}
+
+.birthday-story-body {
+    grid-column: span 7;
+}
+
+.birthday-story-prose {
+    line-height: 1.9;
+}
+
+.birthday-story-prose > * + * {
+    margin-top: 1.5rem;
+}
+
+.birthday-story-dropcap::first-letter {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3.2em;
+    line-height: 1;
+    float: left;
+    padding-right: 0.6rem;
+    color: var(--birthday-red);
+}
+
+.birthday-story-mark {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.birthday-story-meta {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    border-top: 1px solid color-mix(in srgb, var(--birthday-ink) 18%, transparent);
+    padding-top: 1.25rem;
+}
+
+@media (max-width: 900px) {
+    .birthday-story-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-story-lead,
+    .birthday-story-body {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Memories — US personal archive. */
+.birthday-memories-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-memories-photo {
+    min-width: 0;
+    background-color: color-mix(in srgb, var(--birthday-surface) 55%, var(--birthday-paper));
+    padding: 0.9rem 0.9rem 1.1rem;
+    transition:
+        opacity 700ms ease,
+        transform 700ms ease,
+        border-color 300ms ease;
+}
+
+.birthday-memories-photo:hover {
+    border-color: color-mix(in srgb, var(--birthday-ink) 38%, transparent);
+}
+
+.birthday-memories-photo--lead {
+    grid-column: span 7;
+}
+
+.birthday-memories-photo--offset {
+    grid-column-end: span 4;
+    grid-column-start: 9;
+    margin-top: clamp(2rem, 6vw, 5rem);
+}
+
+.birthday-memories-photo--closing {
+    grid-column-end: span 6;
+    grid-column-start: 4;
+}
+
+.birthday-memories-canvas {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--birthday-paper-dark);
+}
+
+.birthday-memories-canvas svg {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+}
+
+.birthday-memories-canvas--3-2 {
+    aspect-ratio: 3 / 2;
+}
+
+.birthday-memories-canvas--3-4 {
+    aspect-ratio: 3 / 4;
+}
+
+.birthday-memories-canvas--4-3 {
+    aspect-ratio: 4 / 3;
+}
+
+.birthday-memories-caption {
+    padding-top: 0.9rem;
+}
+
+.birthday-memories-archive {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+    .birthday-memories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-memories-photo--lead,
+    .birthday-memories-photo--offset,
+    .birthday-memories-photo--closing {
+        grid-column: 1 / -1;
+        grid-column-start: auto;
+        margin-top: 0;
+    }
+
+    .birthday-memories-canvas--3-4 {
+        aspect-ratio: 4 / 3;
+    }
+}
+
+/* Music — THIS SONG listening room. */
+.birthday-music-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-music-lead {
+    grid-column: span 4;
+}
+
+.birthday-music-panel {
+    grid-column: span 8;
+    padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.birthday-music-track {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.birthday-music-wave {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.birthday-music-audio audio {
+    width: 100%;
+}
+
+.birthday-music-cue {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+    .birthday-music-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-music-lead,
+    .birthday-music-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Letter — FOR QATHAR private room. */
+.birthday-letter-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-letter-lead {
+    grid-column: span 4;
+}
+
+.birthday-letter-panel {
+    grid-column: span 8;
+    background-color: color-mix(in srgb, var(--birthday-surface) 55%, var(--birthday-paper));
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+}
+
+.birthday-letter-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.birthday-letter-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.birthday-letter-body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.9;
+    max-width: 65ch;
+}
+
+.birthday-letter-body > * + * {
+    margin-top: 1.4rem;
+}
+
+.birthday-letter-mark {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 900px) {
+    .birthday-letter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-letter-lead,
+    .birthday-letter-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Closing — THE LAST ROOM. */
+.birthday-closing {
+    background-color: var(--birthday-paper-dark);
+    min-height: 85svh;
+    display: flex;
+    align-items: center;
+}
+
+.birthday-closing-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: clamp(3rem, 8vw, 5rem);
+    padding-bottom: clamp(3rem, 8vw, 5rem);
+}
+
+.birthday-closing-index {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.birthday-closing-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+}
+
+.birthday-closing-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.birthday-closing-message {
+    max-width: 60ch;
+    line-height: 1.8;
+}
+
+.birthday-closing-mark {
+    display: block;
+    width: min(520px, 100%);
+    height: auto;
+}
+
+@media (max-width: 900px) {
+    .birthday-closing {
+        min-height: 70svh;
+    }
+}
+
+/* Safe spacing above the fixed theme toggle on small phones. */
+@media (max-width: 430px) {
+    .birthday-closing-inner {
+        padding-bottom: calc(clamp(3rem, 8vw, 5rem) + 2.5rem);
+    }
+}
+
+/* Memories video frame shares the canvas box with the photo placeholders. */
+.birthday-memory-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background-color: var(--birthday-paper-dark);
+}
+
+/* This Year — exhibition labels for three moments. */
+.birthday-this-year-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.birthday-this-year-lead {
+    grid-column: span 4;
+}
+
+.birthday-this-year-list {
+    grid-column: span 8;
+    margin: 0;
+}
+
+.birthday-this-year-item {
+    border-top: 1px solid color-mix(in srgb, var(--birthday-ink) 18%, transparent);
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+}
+
+.birthday-this-year-item--offset {
+    margin-left: clamp(0rem, 6vw, 4rem);
+}
+
+.birthday-this-year-number {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1;
+    font-weight: 500;
+    color: var(--birthday-red);
+}
+
+@media (max-width: 900px) {
+    .birthday-this-year-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .birthday-this-year-lead,
+    .birthday-this-year-list {
+        grid-column: 1 / -1;
+    }
+
+    .birthday-this-year-item--offset {
+        margin-left: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .birthday-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
