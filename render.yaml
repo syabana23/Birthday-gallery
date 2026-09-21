@@ -1,0 +1,22 @@
+# Render blueprint for the birthday gallery (Laravel 13, Docker, Free plan).
+# Apply via the Render dashboard (Blueprints -> New Blueprint Instance).
+# Only SQLite is used — no managed database service is required.
+
+services:
+  - type: web
+    name: birthday-for-u
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      # APP_URL is intentionally not hardcoded here. The container startup
+      # script picks up Render's RENDER_EXTERNAL_URL automatically. After the
+      # first deploy, verify the public URL in the dashboard and, if needed,
+      # set APP_URL explicitly to the https onrender.com URL.
